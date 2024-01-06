@@ -1,30 +1,33 @@
-/*
- * Copyright (C) 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.android.hilt.data
 
 import android.os.Handler
 import android.os.Looper
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Data manager class that handles data manipulation between the database and the UI.
+ *
+ * @Inject constructor(): Hilt knows how to provide instances of LoggerLocalDataSource
+ * @Singleton: we want the application container to always provide the same instance of LoggerLocalDataSource
+ *
+ * Transitive dependencies!
+ *  - To provide an instance of LoggerLocalDataSource, Hilt also needs to know how to provide an
+ *    instance of LogDao.
+ *  - Unfortunately, because LogDao is an interface, we cannot annotate its constructor with @Inject
+ *    because interfaces don't have constructors.
+ *  - SOLUTION: Hilt Module
+ *            - We can include bindings for types that cannot be constructor-injected such as
+ *              interfaces or classes that are not contained in your project.
+ *            - Hilt module is a class annotated with @Module and @InstallIn.
+ *                  > @Module tells Hilt that this is a module and
+ *                  > @InstallIn tells Hilt the containers where the bindings are available by
+ *                    specifying a Hilt component
  */
-class LoggerLocalDataSource(private val logDao: LogDao) {
+@Singleton
+class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao) {
 
     private val executorService: ExecutorService = Executors.newFixedThreadPool(4)
     private val mainThreadHandler by lazy {

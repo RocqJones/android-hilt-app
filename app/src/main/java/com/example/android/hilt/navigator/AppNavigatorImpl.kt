@@ -32,9 +32,10 @@ class AppNavigatorImpl(private val activity: FragmentActivity) : AppNavigator {
             Screens.LOGS -> LogsFragment()
         }
 
-        activity.supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragment)
-            .addToBackStack(fragment::class.java.canonicalName)
-            .commit()
+        activity.supportFragmentManager.beginTransaction().replace(
+            R.id.main_container, fragment
+        ).addToBackStack(
+            fragment::class.java.canonicalName
+        ).commit()
     }
 }
