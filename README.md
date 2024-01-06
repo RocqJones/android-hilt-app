@@ -18,11 +18,6 @@ Implementing dependency injection provides you with the following advantages:
 * Experience with Kotlin syntax.
 * You understand Dependency Injection.
 
-
-# Comparison between different branches
-* [Full codelab comparison](https://github.com/googlecodelabs/android-hilt/compare/main...solution)
-
-
 # License
 
 ```
