@@ -6,12 +6,16 @@ import com.example.android.hilt.LogApplication
 import com.example.android.hilt.R
 import com.example.android.hilt.navigator.AppNavigator
 import com.example.android.hilt.navigator.Screens
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Main activity of the application.
  *
  * Container for the Buttons & Logs fragments. This activity simply tracks clicks on buttons.
+ *
+ * Hilt needs to be aware of the Activity that hosts the Fragment in order to work. We'll need to use @AndroidEntryPoint.
  */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navigator: AppNavigator
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
 
