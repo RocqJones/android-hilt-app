@@ -3,12 +3,11 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     compileSdkVersion 33
-
 
     defaultConfig {
         applicationId "com.example.android.hilt"
